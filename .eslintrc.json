@@ -10,6 +10,8 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
+    "plugin:testing-library/react",
+    "plugin:jest-dom/recommended",
     "plugin:import/recommended",
     "plugin:import/typescript",
     "plugin:import/errors",
@@ -32,6 +34,7 @@
   "rules": {
     "@next/next/no-html-link-for-pages": "off",
     "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
     "no-unused-vars": "off",
     "no-console": "error",
     "simple-import-sort/imports": [
