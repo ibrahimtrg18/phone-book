@@ -23,6 +23,13 @@
       "rules": {
         "@typescript-eslint/no-var-requires": "off"
       }
+    },
+    {
+      "files": ["src/graphql/**/*.ts"],
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "off",
+        "import/newline-after-import": "off"
+      }
     }
   ],
   "parser": "@typescript-eslint/parser",

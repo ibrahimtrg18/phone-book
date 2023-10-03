@@ -1,0 +1,9 @@
+overwrite: true
+schema: "https://wpe-hiring.tokopedia.net/graphql" # Replace with your GraphQL endpoint
+documents: "src/graphql/queries/**/*.graphql"
+generates:
+  src/graphql/index.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
