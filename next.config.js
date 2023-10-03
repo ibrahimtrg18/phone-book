@@ -8,6 +8,9 @@ const withPWA = require("next-pwa")({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  env: {
+    GRAPHQL_URI: process.env.GRAPHQL_URI,
+  },
 };
 
 module.exports = withPWA(nextConfig);
