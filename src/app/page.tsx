@@ -1,5 +1,11 @@
 import React from "react";
 
-export default function Home() {
-  return <main>Main</main>;
+import { ContactList } from "./Fragments/ContactList";
+
+export default function ContactListPage() {
+  return (
+    <main>
+      <ContactList />
+    </main>
+  );
 }
