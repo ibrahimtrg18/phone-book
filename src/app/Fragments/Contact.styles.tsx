@@ -26,3 +26,5 @@ export const Name = styled.div`
 export const Phone = styled.div`
   font-size: 0.875rem;
 `;
+
+export const Form = styled.form``;

@@ -1,0 +1,33 @@
+"use client";
+import { createContext, useContext, useState } from "react";
+
+export const ModeContext = createContext<null | ReturnType<typeof useMode>>(
+  null
+);
+
+export const useModeContext = () => {
+  const context = useContext(ModeContext);
+
+  if (!context) {
+    throw new Error("useModeContext must be used within a ModeContextProvider");
+  }
+
+  return context;
+};
+
+export const ModeContextProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+  mode: string;
+}) => {
+  const value = useMode();
+
+  return <ModeContext.Provider value={value}>{children}</ModeContext.Provider>;
+};
+
+export const useMode = () => {
+  const [mode, setMode] = useState();
+
+  return { mode, setMode };
+};
