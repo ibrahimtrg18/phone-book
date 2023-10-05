@@ -2,10 +2,10 @@
 import { Heading } from "@/components";
 import { useGetContactListQuery } from "@/graphql";
 
-import { ContactItem } from "./ContactItem";
+import ContactItem from "./ContactItem";
 import * as ContactStyles from "./Contact.styles";
 
-export const ContactList = () => {
+const ContactList = () => {
   const { data } = useGetContactListQuery({
     variables: { limit: 10, offset: 10 },
   });
@@ -13,11 +13,13 @@ export const ContactList = () => {
   return (
     <ContactStyles.Container>
       <Heading>Contact List</Heading>
-      <ContactStyles.ContactList>
+      <ContactStyles.List>
         {data?.contact.map((contact) => (
           <ContactItem key={contact.id} {...contact} />
         ))}
-      </ContactStyles.ContactList>
+      </ContactStyles.List>
     </ContactStyles.Container>
   );
 };
+
+export default ContactList;

@@ -1,11 +1,11 @@
 import React from "react";
 
-import { ContactList } from "./Fragments/ContactList";
+import Contact from "./Fragments/Contact";
 
 export default function ContactListPage() {
   return (
     <main>
-      <ContactList />
+      <Contact />
     </main>
   );
 }
