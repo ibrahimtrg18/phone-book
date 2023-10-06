@@ -7,7 +7,6 @@ export const Wrapper = styled.div`
   flex-direction: column;
   font-family: "Open Sans", sans-serif;
   width: inherit;
-  flex: 1;
 `;
 
 export const Label = styled.label`

@@ -5,5 +5,6 @@ export { default as Container } from "./Container";
 export { default as Input } from "./Input";
 export { default as Loader } from "./Loader";
 export { default as Pagination } from "./Pagination";
+export { default as SearchInput } from "./SearchInput";
 export * from "./Styles/Common.styles";
 export { Heading, Text } from "./Typography";

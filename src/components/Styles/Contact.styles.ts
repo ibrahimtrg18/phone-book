@@ -19,7 +19,6 @@ export const Item = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
-  padding: 0 10px;
 `;
 
 export const Name = styled.div`
