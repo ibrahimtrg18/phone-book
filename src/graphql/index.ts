@@ -2296,7 +2296,7 @@ export type GetContactDetailQuery = {
     id: number;
     first_name: string;
     created_at: any;
-    phones: Array<{ __typename?: "phone"; number: string }>;
+    phones: Array<{ __typename?: "phone"; contact_id: number; number: string }>;
   } | null;
 };
 
@@ -2661,6 +2661,7 @@ export const GetContactDetailDocument = gql`
       first_name
       created_at
       phones {
+        contact_id
         number
       }
     }

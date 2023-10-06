@@ -29,7 +29,7 @@ const ContactDetail = () => {
       actionButton: {
         show: true,
         icon: <CgPen />,
-        link: { pathname: `/contact/${id}` },
+        link: { pathname: `/contact/form`, query: { id } },
       },
     });
   }, [fullName]);

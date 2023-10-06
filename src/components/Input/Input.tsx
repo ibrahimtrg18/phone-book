@@ -9,7 +9,7 @@ const Input = (props: InputProps, ref: InputRef) => {
   const id = useId();
 
   const hasLabel = Boolean(label);
-  const isNumberic = Boolean(type === "number");
+  const isNumberic = Boolean(type === "numberic");
 
   const onNumbericKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "e") {

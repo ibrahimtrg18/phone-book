@@ -5,6 +5,7 @@ query GetContactDetail($id: Int!) {
     first_name
     created_at
     phones {
+      contact_id
       number
     }
   }

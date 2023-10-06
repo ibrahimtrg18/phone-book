@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Button, Input } from "@/components";
 import * as FormStyles from "@/components/Form/Form.styles";
 import * as InputStyles from "@/components/Input/Input.styles";
@@ -8,17 +8,40 @@ import * as ContactStyles from "@/components/Styles/Contact.styles";
 import { useAppContext } from "@/contexts/AppContext";
 import {
   Contact_Insert_Input,
+  GetContactDetailDocument,
+  GetContactDetailQuery,
   useAddContactWithPhonesMutation,
+  useEditContactByIdMutation,
+  useEditPhoneNumberMutation,
+  useGetContactDetailLazyQuery,
 } from "@/graphql";
+import { getFullName } from "@/utils/common";
+import { useApolloClient } from "@apollo/client";
 import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { CgMathPlus, CgTrash } from "react-icons/cg";
 
 type ContactForm = Required<Contact_Insert_Input>;
 
 const ContactForm = () => {
-  const { push } = useRouter();
-
   const { setAppState } = useAppContext();
+  const { push, back } = useRouter();
+  const search = useSearchParams();
+  const id = search.get("id");
+
+  const client = useApolloClient();
+  const prevContactData: GetContactDetailQuery | null = client.readQuery({
+    query: GetContactDetailDocument, // Replace with your actual query
+    variables: { id: Number(id) },
+  });
+
+  const [doAddContact] = useAddContactWithPhonesMutation();
+  const [doEditContact] = useEditContactByIdMutation();
+  const [doEditPhoneNumber] = useEditPhoneNumberMutation();
+
+  const [getContactDetail] = useGetContactDetailLazyQuery({
+    variables: { id: Number(id) },
+  });
+
   const {
     register,
     handleSubmit,
@@ -27,11 +50,11 @@ const ContactForm = () => {
     formState: { errors },
   } = useForm<ContactForm>({
     defaultValues: {
-      phones: { data: [{ number: "" }] },
+      first_name: "",
+      last_name: "",
+      phones: { data: [] },
     },
   });
-
-  const [doAddContact] = useAddContactWithPhonesMutation();
 
   const { fields, remove, append } = useFieldArray({
     control, // control props comes from useForm (optional: if you are using FormContext)
@@ -40,6 +63,36 @@ const ContactForm = () => {
 
   const onSubmit: SubmitHandler<ContactForm> = (data) => {
     const { first_name, last_name, phones } = data;
+
+    // const _phones = phones?.data.map(({ number }) => ({ number }));
+    if (id) {
+      doEditContact({
+        variables: {
+          id: Number(id),
+          _set: {
+            first_name: first_name,
+            last_name: last_name,
+          },
+        },
+      });
+
+      prevContactData?.contact_by_pk?.phones.map(
+        ({ contact_id, number }, index) => {
+          doEditPhoneNumber({
+            variables: {
+              pk_columns: {
+                contact_id: contact_id!,
+                number: number!,
+              },
+              new_phone_number: String(phones?.data?.[index]?.number),
+            },
+          });
+        }
+      );
+
+      back();
+      return;
+    }
 
     doAddContact({
       variables: {
@@ -53,7 +106,34 @@ const ContactForm = () => {
     push("/");
   };
 
+  // autopopulate contact detail to form
   useEffect(() => {
+    if (id) {
+      (async () => {
+        const { data } = await getContactDetail();
+
+        if (data?.contact_by_pk) {
+          const { first_name, last_name, phones } = data.contact_by_pk;
+
+          reset({
+            first_name,
+            last_name,
+            phones: {
+              data: phones,
+            },
+          });
+
+          setAppState({
+            title: `Edit ${getFullName(first_name, last_name)}`,
+            showGoBack: true,
+            actionButton: {
+              show: false,
+            },
+          });
+        }
+      })();
+    }
+
     setAppState({
       title: "Add new contact",
       showGoBack: true,
@@ -61,7 +141,7 @@ const ContactForm = () => {
         show: false,
       },
     });
-  }, []);
+  }, [id]);
 
   return (
     <ContactStyles.Container>
@@ -96,15 +176,17 @@ const ContactForm = () => {
                   },
                 })}
                 placeholder="Phone"
-                type="number"
+                type="numberic"
                 minLength={8}
                 maxLength={15}
                 errorMessage={errors.phones?.data?.[index]?.number?.message}
               />
-              <Button onClick={() => remove(index)}>
-                <CgTrash />
-              </Button>
-              {index === fields.length - 1 && (
+              {!id && (
+                <Button onClick={() => remove(index)}>
+                  <CgTrash />
+                </Button>
+              )}
+              {!id && index === fields.length - 1 && (
                 <Button onClick={() => append({})}>
                   <CgMathPlus />
                 </Button>
