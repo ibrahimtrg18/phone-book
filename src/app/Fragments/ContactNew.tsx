@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import { Button, Heading, Input } from "@/components";
 import * as FormStyles from "@/components/Form/Form.styles";
 import * as InputStyles from "@/components/Input/Input.styles";
+import { useAppContext } from "@/contexts/AppContext";
 import {
   Contact_Insert_Input,
   useAddContactWithPhonesMutation,
@@ -13,6 +15,7 @@ import * as ContactStyles from "./Contact.styles";
 type ContactForm = Required<Contact_Insert_Input>;
 
 const ContactNew = () => {
+  const { setTitleAppbar } = useAppContext();
   const { register, handleSubmit, control } = useForm<ContactForm>({
     defaultValues: {
       phones: { data: [{ number: "" }] },
@@ -38,9 +41,13 @@ const ContactNew = () => {
     });
   };
 
+  useEffect(() => {
+    setTitleAppbar("Add new contact");
+  }, []);
+
   return (
     <ContactStyles.Container>
-      <Heading>Add new contact</Heading>
+      <Heading></Heading>
       <FormStyles.Form onSubmit={handleSubmit(onSubmit)}>
         <Input
           {...register("first_name")}

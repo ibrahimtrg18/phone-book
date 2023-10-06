@@ -39,6 +39,8 @@
   },
   "plugins": ["react", "@typescript-eslint", "simple-import-sort", "import"],
   "rules": {
+    "react/no-unknown-property": ["error", { "ignore": ["css"] }],
+    "@typescript-eslint/no-explicit-any": "warn",
     "@next/next/no-html-link-for-pages": "off",
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
