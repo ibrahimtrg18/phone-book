@@ -11,6 +11,17 @@ const nextConfig = {
   env: {
     GRAPHQL_URI: process.env.GRAPHQL_URI,
   },
+  images: {
+    dangerouslyAllowSVG: true,
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "ui-avatars.com",
+        port: "",
+        pathname: "/api/**",
+      },
+    ],
+  },
 };
 
 module.exports = withPWA(nextConfig);

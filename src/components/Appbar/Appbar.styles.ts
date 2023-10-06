@@ -28,4 +28,9 @@ export const GoBack = styled(Button)`
 export const Title = styled(Heading6)`
   flex: 1;
   padding: 0 10px;
+
+  /* ellipsis */
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 `;

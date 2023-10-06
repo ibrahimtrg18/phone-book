@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useMemo } from "react";
 import { useParams } from "next/navigation";
+import { Box, Heading, Text } from "@/components";
+import * as ContactDetailStyles from "@/components/Styles/ContactDetail.styles";
 import { useAppContext } from "@/contexts/AppContext";
 import { useGetContactDetailQuery } from "@/graphql";
 import { getFullName } from "@/utils/common";
@@ -22,7 +24,24 @@ const ContactDetail = () => {
     setAppState({ title: fullName, showGoBack: true });
   }, [fullName]);
 
-  return <div>{fullName}</div>;
+  return (
+    <ContactDetailStyles.Container>
+      <ContactDetailStyles.HeadingWrapper>
+        <ContactDetailStyles.Picture
+          firstName={firstName || ""}
+          lastName={lastName || ""}
+        />
+        <Box
+          css={{
+            justifyContent: "space-between",
+          }}
+        >
+          <Heading variant="h6">{fullName}</Heading>
+          <Text>{data?.contact_by_pk?.created_at}</Text>
+        </Box>
+      </ContactDetailStyles.HeadingWrapper>
+    </ContactDetailStyles.Container>
+  );
 };
 
 export default ContactDetail;
