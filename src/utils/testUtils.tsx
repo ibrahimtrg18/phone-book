@@ -3,7 +3,6 @@ import theme from "@/theme";
 import { ThemeProvider } from "@emotion/react";
 import { render, RenderOptions, RenderResult } from "@testing-library/react";
 
-// Define your custom render function
 const customRender = (
   ui: ReactElement,
   options?: Omit<RenderOptions, "queries"> & { wrapper?: React.ComponentType }
