@@ -7,6 +7,7 @@ export const Container = styled.div`
   box-shadow: 0 0 20px 2 rgba(0, 0, 0, 0.12);
   display: flex;
   flex-direction: column;
+  gap: 10px;
 `;
 
 export const HeadingWrapper = styled.div`
@@ -20,4 +21,13 @@ export const HeadingWrapper = styled.div`
 
 export const Picture = styled(Initial)`
   flex: 1;
+`;
+
+export const PhoneList = styled.div`
+  background-color: ${(props) => props.theme.colors.white};
+  box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
 `;

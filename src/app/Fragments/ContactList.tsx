@@ -14,9 +14,11 @@ const ContactList = () => {
   const [page, setPage] = useState(1);
   const pageCount = 100;
   const pageSize = 10;
+  const limit = pageSize;
+  const offset = page <= 1 ? 0 : page * pageSize;
 
   const { data } = useGetContactListQuery({
-    variables: { limit: 10, offset: 10 },
+    variables: { limit, offset },
   });
 
   useEffect(() => {

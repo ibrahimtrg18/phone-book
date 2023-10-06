@@ -1,7 +1,7 @@
 "use client";
-import { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useParams } from "next/navigation";
-import { Box, Heading, Text } from "@/components";
+import { Box, Divider, Heading, Link, Text } from "@/components";
 import * as ContactDetailStyles from "@/components/Styles/ContactDetail.styles";
 import { useAppContext } from "@/contexts/AppContext";
 import { useGetContactDetailQuery } from "@/graphql";
@@ -31,15 +31,24 @@ const ContactDetail = () => {
           firstName={firstName || ""}
           lastName={lastName || ""}
         />
-        <Box
-          css={{
-            justifyContent: "space-between",
-          }}
-        >
+        <Box style={{ justifyContent: "space-between", padding: "5px 0" }}>
           <Heading variant="h6">{fullName}</Heading>
           <Text>{data?.contact_by_pk?.created_at}</Text>
         </Box>
       </ContactDetailStyles.HeadingWrapper>
+      <ContactDetailStyles.PhoneList>
+        <Heading variant="h6">Phone Number</Heading>
+        {data?.contact_by_pk?.phones.map((phone, index) => (
+          <React.Fragment key={phone.number}>
+            <Link href={`tel:${phone.number}`}>
+              <Text>{phone?.number}</Text>
+            </Link>
+            {index !== Number(data.contact_by_pk?.phones.length) - 1 && (
+              <Divider />
+            )}
+          </React.Fragment>
+        ))}
+      </ContactDetailStyles.PhoneList>
     </ContactDetailStyles.Container>
   );
 };

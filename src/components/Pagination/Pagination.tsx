@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { usePaginationRange } from "@/hooks/usePagination";
 import { RxChevronLeft, RxChevronRight } from "react-icons/rx";
