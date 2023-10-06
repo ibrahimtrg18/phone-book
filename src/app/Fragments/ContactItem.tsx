@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { RecursivePartial } from "@/@types/common";
+import { Button } from "@/components";
 import * as ContactStyles from "@/components/Styles/Contact.styles";
-import { Contact } from "@/graphql";
+import { Contact, useDeleteContactPhoneMutation } from "@/graphql";
 import { getFullName, getPhoneNumberByIndex } from "@/utils/common";
+import { CgTrash } from "react-icons/cg";
 
 type ContactItemProps = RecursivePartial<Contact>;
 
@@ -15,13 +17,33 @@ const ContactItem = ({
   const fullName = getFullName(firstName, lastName);
   const phone = getPhoneNumberByIndex(phones, 0);
 
+  const [doRemoveContact] = useDeleteContactPhoneMutation({
+    variables: { id: id! },
+    update: (cache, { data }) => {
+      if (data?.delete_contact_by_pk?.id) {
+        cache.evict({ id: cache.identify(data.delete_contact_by_pk) });
+        cache.gc();
+      }
+    },
+  });
+
+  const onRemoveItemClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.stopPropagation();
+    doRemoveContact();
+  };
+
   return (
-    <Link href={{ pathname: `/contact/${id}` }}>
-      <ContactStyles.Item>
+    <ContactStyles.Item>
+      <Link href={{ pathname: `/contact/${id}` }} style={{ flex: 1 }}>
         <ContactStyles.Name>{fullName}</ContactStyles.Name>
         <ContactStyles.Phone>{phone}</ContactStyles.Phone>
-      </ContactStyles.Item>
-    </Link>
+      </Link>
+      <Button variant="text" onClick={(e) => onRemoveItemClick(e)}>
+        <CgTrash />
+      </Button>
+    </ContactStyles.Item>
   );
 };
 

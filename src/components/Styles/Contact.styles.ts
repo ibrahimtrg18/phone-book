@@ -17,7 +17,7 @@ export const List = styled.div`
 
 export const Item = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 5px;
 `;
 
