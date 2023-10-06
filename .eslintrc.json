@@ -19,7 +19,7 @@
   ],
   "overrides": [
     {
-      "files": ["*.js"],
+      "files": ["*.js", "__test__/**/*{.ts,.tsx}"],
       "rules": {
         "@typescript-eslint/no-var-requires": "off"
       }

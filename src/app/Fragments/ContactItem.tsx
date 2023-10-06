@@ -50,7 +50,7 @@ const ContactItem = (props: ContactItemProps) => {
     }
   };
 
-  const inFavorited = favorites.some((f) => f.id === props.id);
+  const inFavorited = favorites?.some((f) => f.id === props.id);
 
   return (
     <ContactStyles.Item>
@@ -61,7 +61,7 @@ const ContactItem = (props: ContactItemProps) => {
       <Button
         variant="text"
         onClick={toggleFavorite}
-        aria-label="Toggle to Favorite"
+        aria-label={inFavorited ? "Remove from Favorite" : "Add to Favorite"}
       >
         {inFavorited ? <BsFillBookmarkFill /> : <BsBookmark />}
       </Button>
