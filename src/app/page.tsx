@@ -1,7 +1,7 @@
 import React from "react";
 
-import Contact from "./Fragments/Contact";
+import ContactList from "./Fragments/ContactList";
 
 export default function ContactListPage() {
-  return <Contact />;
+  return <ContactList />;
 }

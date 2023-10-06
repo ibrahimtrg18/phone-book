@@ -13,7 +13,7 @@ import { CgMathPlus, CgTrash } from "react-icons/cg";
 
 type ContactForm = Required<Contact_Insert_Input>;
 
-const ContactNew = () => {
+const ContactForm = () => {
   const { setTitleAppbar } = useAppContext();
   const { register, handleSubmit, control } = useForm<ContactForm>({
     defaultValues: {
@@ -85,4 +85,4 @@ const ContactNew = () => {
   );
 };
 
-export default ContactNew;
+export default ContactForm;

@@ -1,4 +1,5 @@
 "use client";
+import { colors } from "@/theme/colors";
 import { css } from "@emotion/react";
 
 const globalCss = css`
@@ -34,6 +35,11 @@ const globalCss = css`
   textarea {
     font-family: "Open Sans", sans-serif;
     font-size: 16px;
+  }
+
+  a {
+    text-decoration: none;
+    color: ${colors.black};
   }
 `;
 

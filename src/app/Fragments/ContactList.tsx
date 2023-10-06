@@ -1,18 +1,24 @@
 "use client";
-import { Heading } from "@/components";
+import { useEffect } from "react";
+import * as ContactStyles from "@/components/Styles/Contact.styles";
+import { useAppContext } from "@/contexts/AppContext";
 import { useGetContactListQuery } from "@/graphql";
 
 import ContactItem from "./ContactItem";
-import * as ContactStyles from "./Contact.styles";
 
 const ContactList = () => {
+  const { setTitleAppbar } = useAppContext();
+
   const { data } = useGetContactListQuery({
     variables: { limit: 10, offset: 10 },
   });
 
+  useEffect(() => {
+    setTitleAppbar("Contact List");
+  }, []);
+
   return (
     <ContactStyles.Container>
-      <Heading>Contact List</Heading>
       <ContactStyles.List>
         {data?.contact.map((contact) => (
           <ContactItem key={contact.id} {...contact} />

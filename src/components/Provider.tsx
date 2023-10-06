@@ -7,7 +7,7 @@ import theme from "@/theme";
 import { ApolloProvider } from "@apollo/client";
 import { Global, ThemeProvider } from "@emotion/react";
 
-import globalCss from "./GlobalStyles";
+import globalCss from "./Styles/GlobalStyles";
 
 type ProviderProps = React.ComponentPropsWithoutRef<"div">;
 
