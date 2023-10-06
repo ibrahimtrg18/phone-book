@@ -2,7 +2,7 @@ import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import { CgSpinner } from "react-icons/cg";
 
-import { AdditionalLoaderProps } from "./Loader.types";
+import { LoaderProps } from "./Loader.types";
 
 const spinning = keyframes`
   0% {
@@ -19,7 +19,7 @@ const shimmer = keyframes`
   }
 `;
 
-export const Container = styled.div<AdditionalLoaderProps>`
+export const Container = styled.div<LoaderProps>`
   display: flex;
   justify-content: ${({ align }) => {
     switch (align) {
