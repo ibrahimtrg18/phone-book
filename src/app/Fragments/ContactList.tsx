@@ -18,7 +18,7 @@ const ContactList = () => {
   const limit = pageSize;
   const offset = page <= 1 ? 0 : (page - 1) * pageSize;
 
-  const { data } = useGetContactListQuery({
+  const { data, refetch } = useGetContactListQuery({
     variables: {
       limit,
       offset,
@@ -39,6 +39,7 @@ const ContactList = () => {
   });
 
   useEffect(() => {
+    refetch();
     setAppState({
       title: "Contact List",
       showGoBack: false,

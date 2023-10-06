@@ -10,13 +10,14 @@ import {
   Contact_Insert_Input,
   GetContactDetailDocument,
   GetContactDetailQuery,
+  GetContactListDocument,
   useAddContactWithPhonesMutation,
   useEditContactByIdMutation,
   useEditPhoneNumberMutation,
   useGetContactDetailLazyQuery,
 } from "@/graphql";
 import { getFullName } from "@/utils/common";
-import { useApolloClient } from "@apollo/client";
+import { useApolloClient, useQuery } from "@apollo/client";
 import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { CgMathPlus, CgTrash } from "react-icons/cg";
 
@@ -24,7 +25,7 @@ type ContactForm = Required<Contact_Insert_Input>;
 
 const ContactForm = () => {
   const { setAppState } = useAppContext();
-  const { push, back } = useRouter();
+  const { back } = useRouter();
   const search = useSearchParams();
   const id = search.get("id");
 
@@ -33,6 +34,8 @@ const ContactForm = () => {
     query: GetContactDetailDocument, // Replace with your actual query
     variables: { id: Number(id) },
   });
+
+  const { refetch } = useQuery(GetContactListDocument);
 
   const [doAddContact] = useAddContactWithPhonesMutation();
   const [doEditContact] = useEditContactByIdMutation();
@@ -52,7 +55,7 @@ const ContactForm = () => {
     defaultValues: {
       first_name: "",
       last_name: "",
-      phones: { data: [] },
+      phones: { data: [{ number: "" }] },
     },
   });
 
@@ -91,6 +94,7 @@ const ContactForm = () => {
       );
 
       back();
+      refetch();
       return;
     }
 
@@ -103,7 +107,7 @@ const ContactForm = () => {
     });
 
     reset();
-    push("/");
+    back();
   };
 
   // autopopulate contact detail to form
@@ -147,13 +151,23 @@ const ContactForm = () => {
     <ContactStyles.Container>
       <FormStyles.Form onSubmit={handleSubmit(onSubmit)}>
         <Input
-          {...register("first_name", { required: "First name is required" })}
+          {...register("first_name", {
+            required: "First name is required",
+            validate: (value) =>
+              /^[a-zA-Z\s]+$/.test(value || "") ||
+              "First Name should not contain special characters",
+          })}
           label="First Name"
           placeholder="First Name"
           errorMessage={errors.first_name?.message}
         />
         <Input
-          {...register("last_name", { required: "Last name is required" })}
+          {...register("last_name", {
+            required: "Last name is required",
+            validate: (value) =>
+              /^[a-zA-Z\s]+$/.test(value || "") ||
+              "First Name should not contain special characters",
+          })}
           label="Last Name"
           placeholder="Last Name"
           errorMessage={errors.last_name?.message}
