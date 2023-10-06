@@ -1,9 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Pagination, SearchInput } from "@/components";
+import { Heading, Pagination, SearchInput, Text } from "@/components";
 import * as ContactStyles from "@/components/Styles/Contact.styles";
 import { useAppContext } from "@/contexts/AppContext";
+import { useFavoriteContext } from "@/contexts/FavoriteContext";
 import { useGetContactListQuery } from "@/graphql";
 import { CgMathPlus } from "react-icons/cg";
 
@@ -12,6 +13,7 @@ import ContactItem from "./ContactItem";
 const ContactList = () => {
   const router = useRouter();
   const { setAppState } = useAppContext();
+  const { favorites } = useFavoriteContext();
   const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const pageSize = 10;
@@ -55,6 +57,10 @@ const ContactList = () => {
   const isPreviousPageDisabled = page <= 1;
   const isNextPageDisabled = page >= Math.ceil(count / pageSize);
 
+  const listContact = data?.contact.filter(
+    (c) => !favorites.some((f) => f.id === c.id)
+  );
+
   return (
     <ContactStyles.Container>
       <SearchInput
@@ -62,7 +68,18 @@ const ContactList = () => {
         placeholder="Searching Name/Phone"
       />
       <ContactStyles.List>
-        {data?.contact.map((contact) => (
+        <Heading variant="h6">Favorite</Heading>
+        {favorites.length > 0 ? (
+          favorites.map((contact) => (
+            <ContactItem key={contact.id} {...contact} />
+          ))
+        ) : (
+          <Text>{"You doesn't have favorite contact"}</Text>
+        )}
+      </ContactStyles.List>
+      <ContactStyles.List>
+        <Heading variant="h6">List</Heading>
+        {listContact?.map((contact) => (
           <ContactItem key={contact.id} {...contact} />
         ))}
       </ContactStyles.List>

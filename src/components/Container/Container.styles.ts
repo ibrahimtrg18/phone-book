@@ -5,7 +5,7 @@ export const Container = styled.div`
   margin-right: auto;
   margin-left: auto;
   background-color: ${(props) => props.theme.colors.white};
-  height: calc(100vh - 48px);
+  height: calc(100vh - 96px);
 
   @media (min-width: 640px) {
     max-width: 640px;

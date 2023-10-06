@@ -6,7 +6,8 @@ import { useFavoriteContext } from "@/contexts/FavoriteContext";
 import { Contact, useDeleteContactPhoneMutation } from "@/graphql";
 import { getFullName, getPhoneNumberByIndex } from "@/utils/common";
 import { addToFavorites } from "@/utils/indexedDB";
-import { CgBookmark, CgTrash } from "react-icons/cg";
+import { BsBookmark, BsFillBookmarkFill } from "react-icons/bs";
+import { CgTrash } from "react-icons/cg";
 
 type ContactItemProps = RecursivePartial<Contact>;
 
@@ -49,6 +50,8 @@ const ContactItem = (props: ContactItemProps) => {
     }
   };
 
+  const inFavorited = favorites.some((f) => f.id === props.id);
+
   return (
     <ContactStyles.Item>
       <Link href={{ pathname: `/contact/${id}` }} style={{ flex: 1 }}>
@@ -56,11 +59,13 @@ const ContactItem = (props: ContactItemProps) => {
         <ContactStyles.Phone>{phone}</ContactStyles.Phone>
       </Link>
       <Button variant="text" onClick={toggleFavorite}>
-        <CgBookmark />
+        {inFavorited ? <BsFillBookmarkFill /> : <BsBookmark />}
       </Button>
-      <Button variant="text" onClick={(e) => onRemoveItemClick(e)}>
-        <CgTrash />
-      </Button>
+      {!inFavorited && (
+        <Button variant="text" onClick={(e) => onRemoveItemClick(e)}>
+          <CgTrash />
+        </Button>
+      )}
     </ContactStyles.Item>
   );
 };

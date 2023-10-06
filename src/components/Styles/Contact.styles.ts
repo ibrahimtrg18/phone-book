@@ -11,7 +11,6 @@ export const List = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  flex: 1;
   padding: 10px;
 `;
 
