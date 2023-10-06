@@ -8,13 +8,14 @@ type SearchInputProps = InputProps & {
 };
 
 const SearchInput = (props: SearchInputProps) => {
+  const { onSearch, ...restProps } = props;
   const [value, setValue] = useState(props.value || "");
   let timeoutId: any = null;
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     timeoutId = setTimeout(() => {
-      props.onSearch(value);
+      onSearch(value);
     }, 500);
 
     return () => {
@@ -28,7 +29,7 @@ const SearchInput = (props: SearchInputProps) => {
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder="Searching..."
-        {...props}
+        {...restProps}
       />
     </Box>
   );
