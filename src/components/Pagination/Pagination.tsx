@@ -13,7 +13,7 @@ export type PaginationProps = React.ComponentPropsWithoutRef<"div"> & {
   page: number;
   isLoading?: boolean;
   siblingCount?: number;
-  pageCount: number;
+  count?: number;
   pageSize: number;
   setPage: (v: string | number) => void;
 };
@@ -22,7 +22,7 @@ const Pagination: React.FC<PaginationProps> = ({
   page,
   isPreviousPageDisabled,
   isNextPageDisabled,
-  pageCount = 1,
+  count = 0,
   pageSize,
   siblingCount = 1,
   setPage,
@@ -34,7 +34,7 @@ const Pagination: React.FC<PaginationProps> = ({
   const currentPage = Number(page);
 
   const paginationRange = usePaginationRange({
-    pageCount,
+    count,
     pageSize,
     siblingCount,
     currentPage,

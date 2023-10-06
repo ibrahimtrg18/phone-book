@@ -20,4 +20,9 @@ query GetContactList(
       number
     }
   }
+  contact_aggregate {
+    aggregate {
+      count
+    }
+  }
 }

@@ -19,32 +19,32 @@ export const PaginationButton = styled(Button)<PaginationButtonProps>`
 
   /* Add styles based on props */
   ${(props) =>
+    props.isActive &&
+    css`
+      color: ${props.theme.colors.blue[400]};
+    `}
+
+  ${(props) =>
     props.disabled &&
     css`
-      color: ${props.theme.colors.gray[50]};
+      color: ${props.theme.colors.gray[400]};
       cursor: not-allowed;
     `}
 
   ${(props) =>
     !props.disabled &&
     css`
-      color: ${props.theme.colors.white};
+      color: ${!props.isActive
+        ? props.theme.colors.gray[400]
+        : props.theme.colors.blue[400]};
+
+      & > svg {
+        font-size: 20px;
+        color: ${props.theme.colors.blue[400]};
+      }
       &:hover {
         color: ${!props.isActive && props.theme.colors.primary};
       }
-    `}
-
-
-  ${(props) =>
-    props.isActive &&
-    css`
-      color: ${props.theme.colors.black};
-    `}
-
-  ${(props) =>
-    !props.isActive &&
-    css`
-      color: ${props.theme.colors.gray[400]};
     `}
 `;
 

@@ -14,7 +14,6 @@ const ContactList = () => {
   const { setAppState } = useAppContext();
   const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
-  const pageCount = 100;
   const pageSize = 10;
   const limit = pageSize;
   const offset = page <= 1 ? 0 : (page - 1) * pageSize;
@@ -51,8 +50,9 @@ const ContactList = () => {
     });
   }, [router]);
 
-  const isPreviousPageDisabled = page < 0;
-  const isNextPageDisabled = page === pageCount;
+  const count = Number(data?.contact_aggregate.aggregate?.count);
+  const isPreviousPageDisabled = page <= 1;
+  const isNextPageDisabled = page >= Math.ceil(count / pageSize);
 
   return (
     <ContactStyles.Container>
@@ -71,7 +71,7 @@ const ContactList = () => {
         isPreviousPageDisabled={isPreviousPageDisabled}
         isNextPageDisabled={isNextPageDisabled}
         page={page}
-        pageCount={pageCount}
+        count={count}
         pageSize={pageSize}
         setPage={(page) => setPage(Number(page))}
       />

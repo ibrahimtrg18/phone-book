@@ -2320,6 +2320,13 @@ export type GetContactListQuery = {
     last_name: string;
     phones: Array<{ __typename?: "phone"; number: string }>;
   }>;
+  contact_aggregate: {
+    __typename?: "contact_aggregate";
+    aggregate?: {
+      __typename?: "contact_aggregate_fields";
+      count: number;
+    } | null;
+  };
 };
 
 export type GetPhoneListQueryVariables = Exact<{
@@ -2731,6 +2738,11 @@ export const GetContactListDocument = gql`
       last_name
       phones {
         number
+      }
+    }
+    contact_aggregate {
+      aggregate {
+        count
       }
     }
   }
