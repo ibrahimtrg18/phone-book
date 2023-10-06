@@ -7,7 +7,6 @@ export const Container = styled.div`
   box-shadow: 0 0 20px 2 rgba(0, 0, 0, 0.12);
   display: flex;
   flex-direction: column;
-  gap: 10px;
 `;
 
 export const HeadingWrapper = styled.div`
@@ -17,6 +16,7 @@ export const HeadingWrapper = styled.div`
   flex-direction: row;
   gap: 10px;
   padding: 10px;
+  margin: 10px 0;
 `;
 
 export const Picture = styled(Initial)`
