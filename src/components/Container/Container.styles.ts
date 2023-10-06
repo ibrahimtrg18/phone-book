@@ -3,8 +3,8 @@ import styled from "@emotion/styled";
 export const Container = styled.div`
   margin-right: auto;
   margin-left: auto;
-  padding-right: 1rem;
-  padding-left: 1rem;
+  background-color: ${(props) => props.theme.colors.white};
+  padding: 10px;
 
   @media (min-width: 640px) {
     max-width: 640px;

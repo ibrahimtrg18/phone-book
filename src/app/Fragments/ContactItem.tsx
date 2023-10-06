@@ -2,6 +2,7 @@ import Link from "next/link";
 import { RecursivePartial } from "@/@types/common";
 import * as ContactStyles from "@/components/Styles/Contact.styles";
 import { Contact } from "@/graphql";
+import { getFullName, getPhoneNumberByIndex } from "@/utils/common";
 
 type ContactItemProps = RecursivePartial<Contact>;
 
@@ -11,9 +12,8 @@ const ContactItem = ({
   last_name: lastName,
   phones,
 }: ContactItemProps) => {
-  const fullName =
-    firstName || lastName ? [firstName, lastName].join(" ") : "-";
-  const phone = phones?.length ? phones[0]?.number || "-" : "-";
+  const fullName = getFullName(firstName, lastName);
+  const phone = getPhoneNumberByIndex(phones, 0);
 
   return (
     <Link href={{ pathname: `/contact/${id}` }}>

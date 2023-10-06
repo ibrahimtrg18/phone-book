@@ -1,5 +1,6 @@
 "use client";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import * as ContactStyles from "@/components/Styles/Contact.styles";
 import { useAppContext } from "@/contexts/AppContext";
 import { useGetContactListQuery } from "@/graphql";
@@ -7,15 +8,16 @@ import { useGetContactListQuery } from "@/graphql";
 import ContactItem from "./ContactItem";
 
 const ContactList = () => {
-  const { setTitleAppbar } = useAppContext();
+  const router = useRouter();
+  const { setAppState } = useAppContext();
 
   const { data } = useGetContactListQuery({
     variables: { limit: 10, offset: 10 },
   });
 
   useEffect(() => {
-    setTitleAppbar("Contact List");
-  }, []);
+    setAppState({ title: "Contact List", showGoBack: false });
+  }, [router]);
 
   return (
     <ContactStyles.Container>
