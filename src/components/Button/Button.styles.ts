@@ -5,10 +5,13 @@ import { ButtonProps } from "./Button.types";
 
 export const Button = styled.button<ButtonProps>`
   // default styles for buttons
-  border-radius: 8px;
+  border-radius: 2px;
   text-transform: uppercase;
   font-family: "Open Sans", sans-serif;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   // size of the button
   ${({ size }) => {

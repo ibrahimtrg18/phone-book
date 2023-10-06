@@ -11,7 +11,7 @@ export const CONTACT_MODE = {
 
 const Contact = () => {
   return (
-    <ModeContextProvider mode={CONTACT_MODE.CONTACT_LIST}>
+    <ModeContextProvider mode={CONTACT_MODE.CONTACT_NEW}>
       <ContactMode />
     </ModeContextProvider>
   );

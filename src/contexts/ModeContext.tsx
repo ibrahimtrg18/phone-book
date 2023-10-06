@@ -17,17 +17,18 @@ export const useModeContext = () => {
 
 export const ModeContextProvider = ({
   children,
+  mode,
 }: {
   children: React.ReactNode;
   mode: string;
 }) => {
-  const value = useMode();
+  const value = useMode(mode);
 
   return <ModeContext.Provider value={value}>{children}</ModeContext.Provider>;
 };
 
-export const useMode = () => {
-  const [mode, setMode] = useState();
+export const useMode = (_mode: string) => {
+  const [mode, setMode] = useState(_mode);
 
   return { mode, setMode };
 };

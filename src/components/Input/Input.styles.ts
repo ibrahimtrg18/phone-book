@@ -6,6 +6,8 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   font-family: "Open Sans", sans-serif;
+  width: inherit;
+  flex: 1;
 `;
 
 export const Label = styled.label`
@@ -18,16 +20,15 @@ export const Label = styled.label`
 export const Input = styled.input<InputProps>`
   font-family: "Open Sans", sans-serif;
   display: block;
-  width: 100%;
+  width: inherit;
   height: 2.5rem;
   padding: 0 0.5rem;
   font-size: 1rem;
   color: ${({ theme }) => theme.colors.black};
   background-color: ${({ theme }) => theme.colors.white};
-  border: 1px solid ${({ theme }) => theme.colors.gray[100]};
+  border: 2px solid ${({ theme }) => theme.colors.gray[100]};
   border-radius: 2px;
   outline: none;
-  transition: all 0.2s ease-out;
 
   &:focus {
     border: 2px solid ${({ theme }) => theme.colors.primary};
