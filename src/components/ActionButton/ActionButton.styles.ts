@@ -1,10 +1,14 @@
 import Link from "next/link";
 import styled from "@emotion/styled";
 
-export const Container = styled(Link)`
+type ContainerProps = {
+  bottom?: string;
+};
+
+export const Container = styled(Link)<ContainerProps>`
   position: absolute;
   right: 0.875rem;
-  bottom: 0.875rem;
+  bottom: ${(props) => props.bottom};
 
   & button {
     position: relative;
@@ -15,5 +19,9 @@ export const Container = styled(Link)`
   & svg {
     position: absolute;
     font-size: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    bottom: 0.875rem;
   }
 `;

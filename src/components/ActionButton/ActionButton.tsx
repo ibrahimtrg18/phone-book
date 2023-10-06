@@ -21,7 +21,7 @@ const ActionButton = () => {
   return (
     <ActionButtonStyles.Container
       href={...actionButton.link}
-      style={{ ...(overridesBottom && { bottom: "calc(48px + 1rem)" }) }}
+      {...(overridesBottom && { bottom: "calc(48px + 0.875rem)" })}
     >
       <Button>{actionButton.icon}</Button>
     </ActionButtonStyles.Container>
