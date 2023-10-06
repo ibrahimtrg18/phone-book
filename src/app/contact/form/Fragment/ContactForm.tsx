@@ -1,5 +1,6 @@
 "use client";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Button, Input } from "@/components";
 import * as FormStyles from "@/components/Form/Form.styles";
 import * as InputStyles from "@/components/Input/Input.styles";
@@ -15,14 +16,16 @@ import { CgMathPlus, CgTrash } from "react-icons/cg";
 type ContactForm = Required<Contact_Insert_Input>;
 
 const ContactForm = () => {
+  const { push } = useRouter();
+
   const { setAppState } = useAppContext();
-  const { register, handleSubmit, control } = useForm<ContactForm>({
+  const { register, handleSubmit, reset, control } = useForm<ContactForm>({
     defaultValues: {
       phones: { data: [{ number: "" }] },
     },
   });
 
-  const [mutation] = useAddContactWithPhonesMutation();
+  const [doAddContact] = useAddContactWithPhonesMutation();
 
   const { fields, remove, append } = useFieldArray({
     control, // control props comes from useForm (optional: if you are using FormContext)
@@ -32,13 +35,16 @@ const ContactForm = () => {
   const onSubmit: SubmitHandler<ContactForm> = (data) => {
     const { first_name, last_name, phones } = data;
 
-    mutation({
+    doAddContact({
       variables: {
         first_name: first_name!,
         last_name: last_name!,
         phones: phones!.data!,
       },
     });
+
+    reset();
+    push("/");
   };
 
   useEffect(() => {
