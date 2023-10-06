@@ -6,6 +6,7 @@ import * as ContactDetailStyles from "@/components/Styles/ContactDetail.styles";
 import { useAppContext } from "@/contexts/AppContext";
 import { useGetContactDetailQuery } from "@/graphql";
 import { getFullName } from "@/utils/common";
+import moment from "moment";
 import { CgPen } from "react-icons/cg";
 
 const ContactDetail = () => {
@@ -42,7 +43,9 @@ const ContactDetail = () => {
         />
         <Box style={{ justifyContent: "space-between", padding: "5px 0" }}>
           <Heading variant="h6">{fullName}</Heading>
-          <Text>{data?.contact_by_pk?.created_at}</Text>
+          <Text>
+            Create at {moment(data?.contact_by_pk?.created_at).fromNow()}
+          </Text>
         </Box>
       </ContactDetailStyles.HeadingWrapper>
       <ContactDetailStyles.PhoneList>
