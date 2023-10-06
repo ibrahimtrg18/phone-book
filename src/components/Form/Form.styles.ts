@@ -19,6 +19,7 @@ export const InputController = styled.div`
   display: flex;
   gap: 10px;
   margin-bottom: 10px;
+  align-items: start;
 
   & div {
     flex: 1;

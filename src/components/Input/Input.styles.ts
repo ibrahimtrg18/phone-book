@@ -7,6 +7,10 @@ export const Wrapper = styled.div`
   flex-direction: column;
   font-family: "Open Sans", sans-serif;
   width: inherit;
+
+  & p {
+    color: ${(props) => props.theme.colors.red[400]};
+  }
 `;
 
 export const Label = styled.label`

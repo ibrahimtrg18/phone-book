@@ -19,7 +19,13 @@ const ContactForm = () => {
   const { push } = useRouter();
 
   const { setAppState } = useAppContext();
-  const { register, handleSubmit, reset, control } = useForm<ContactForm>({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    control,
+    formState: { errors },
+  } = useForm<ContactForm>({
     defaultValues: {
       phones: { data: [{ number: "" }] },
     },
@@ -61,14 +67,16 @@ const ContactForm = () => {
     <ContactStyles.Container>
       <FormStyles.Form onSubmit={handleSubmit(onSubmit)}>
         <Input
-          {...register("first_name")}
+          {...register("first_name", { required: "First name is required" })}
           label="First Name"
           placeholder="First Name"
+          errorMessage={errors.first_name?.message}
         />
         <Input
-          {...register("last_name")}
+          {...register("last_name", { required: "Last name is required" })}
           label="Last Name"
           placeholder="Last Name"
+          errorMessage={errors.last_name?.message}
         />
         <InputStyles.Wrapper>
           <InputStyles.Label>Phones</InputStyles.Label>
@@ -76,9 +84,22 @@ const ContactForm = () => {
             <FormStyles.InputController key={field.id}>
               <InputStyles.Label>{index + 1}</InputStyles.Label>
               <Input
-                {...register(`phones.data.${index}.number`)}
+                {...register(`phones.data.${index}.number`, {
+                  required: "Phone number is required",
+                  minLength: {
+                    value: 8,
+                    message: "Phone number must be at least 8 characters",
+                  },
+                  maxLength: {
+                    value: 15,
+                    message: "Phone number cannot exceed 15 characters",
+                  },
+                })}
                 placeholder="Phone"
                 type="number"
+                minLength={8}
+                maxLength={15}
+                errorMessage={errors.phones?.data?.[index]?.number?.message}
               />
               <Button onClick={() => remove(index)}>
                 <CgTrash />

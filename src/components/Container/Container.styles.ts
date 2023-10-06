@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 
 export const Container = styled.div`
+  position: relative;
   margin-right: auto;
   margin-left: auto;
   background-color: ${(props) => props.theme.colors.white};

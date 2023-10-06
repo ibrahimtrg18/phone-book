@@ -4,6 +4,7 @@ type ReactInputProps = React.ComponentPropsWithoutRef<"input">;
 type AdditionalInputProps = {
   as?: ElementType;
   label?: string;
+  errorMessage?: string;
 };
 
 export type InputProps = ReactInputProps & AdditionalInputProps;
