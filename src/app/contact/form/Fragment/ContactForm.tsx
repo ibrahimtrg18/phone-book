@@ -1,5 +1,6 @@
+"use client";
 import { useEffect } from "react";
-import { Button, Heading, Input } from "@/components";
+import { Button, Input } from "@/components";
 import * as FormStyles from "@/components/Form/Form.styles";
 import * as InputStyles from "@/components/Input/Input.styles";
 import * as ContactStyles from "@/components/Styles/Contact.styles";
@@ -14,7 +15,7 @@ import { CgMathPlus, CgTrash } from "react-icons/cg";
 type ContactForm = Required<Contact_Insert_Input>;
 
 const ContactForm = () => {
-  const { setTitleAppbar } = useAppContext();
+  const { setAppState } = useAppContext();
   const { register, handleSubmit, control } = useForm<ContactForm>({
     defaultValues: {
       phones: { data: [{ number: "" }] },
@@ -41,12 +42,17 @@ const ContactForm = () => {
   };
 
   useEffect(() => {
-    setTitleAppbar("Add new contact");
+    setAppState({
+      title: "Add new contact",
+      showGoBack: true,
+      actionButton: {
+        show: false,
+      },
+    });
   }, []);
 
   return (
     <ContactStyles.Container>
-      <Heading></Heading>
       <FormStyles.Form onSubmit={handleSubmit(onSubmit)}>
         <Input
           {...register("first_name")}

@@ -1,6 +1,6 @@
 "use client";
 import React, { FC } from "react";
-import { Appbar, Container } from "@/components";
+import { ActionButton, Appbar, Container } from "@/components";
 import { AppContextProvider } from "@/contexts/AppContext";
 import client from "@/libs/client";
 import theme from "@/theme";
@@ -19,6 +19,7 @@ const Provider: FC<ProviderProps> = ({ children }) => {
         <AppContextProvider>
           <Appbar />
           <Container>{children}</Container>
+          <ActionButton />
         </AppContextProvider>
       </ThemeProvider>
     </ApolloProvider>

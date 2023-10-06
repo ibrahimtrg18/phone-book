@@ -26,6 +26,11 @@ export const AppContextProvider = ({
 type AppState = {
   title: string;
   showGoBack?: boolean;
+  actionButton?: {
+    show?: boolean;
+    icon?: React.ReactNode;
+    link?: object;
+  };
 };
 
 type AppAction = {
@@ -36,11 +41,17 @@ type AppAction = {
 const initialAppState: AppState = {
   title: "",
   showGoBack: false,
+  actionButton: {
+    show: false,
+    icon: null,
+    link: {},
+  },
 };
 
 const APPBAR_ACTION = {
   SET_TITLE: "SET_TITLE",
   SET_SHOW_GO_BACK: "SET_SHOW_GO_BACK",
+  SET_SHOW_ACTION_BUTTON: "SET_SHOW_ACTION_BUTTON",
   SET_APP_STATE: "SET_APP_STATE",
 };
 
@@ -70,7 +81,7 @@ const appReducer = (state: AppState, action: AppAction) => {
 };
 
 export const useApp = () => {
-  const [{ title, showGoBack }, dispatch] = useReducer(
+  const [{ title, showGoBack, actionButton }, dispatch] = useReducer(
     appReducer,
     initialAppState
   );
@@ -87,5 +98,12 @@ export const useApp = () => {
     dispatch({ type: APPBAR_ACTION.SET_APP_STATE, payload });
   };
 
-  return { title, showGoBack, setTitleAppbar, setShowGoBack, setAppState };
+  return {
+    title,
+    showGoBack,
+    actionButton,
+    setTitleAppbar,
+    setShowGoBack,
+    setAppState,
+  };
 };

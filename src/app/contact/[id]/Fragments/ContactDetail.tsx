@@ -6,6 +6,7 @@ import * as ContactDetailStyles from "@/components/Styles/ContactDetail.styles";
 import { useAppContext } from "@/contexts/AppContext";
 import { useGetContactDetailQuery } from "@/graphql";
 import { getFullName } from "@/utils/common";
+import { CgPen } from "react-icons/cg";
 
 const ContactDetail = () => {
   const { id } = useParams();
@@ -21,7 +22,15 @@ const ContactDetail = () => {
   );
 
   useEffect(() => {
-    setAppState({ title: fullName, showGoBack: true });
+    setAppState({
+      title: fullName,
+      showGoBack: true,
+      actionButton: {
+        show: true,
+        icon: <CgPen />,
+        link: { pathname: `/contact/${id}` },
+      },
+    });
   }, [fullName]);
 
   return (

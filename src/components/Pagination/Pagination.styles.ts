@@ -54,5 +54,5 @@ export const PaginationContainer = styled.div`
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  padding: 1.5rem;
+  box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.12);
 `;

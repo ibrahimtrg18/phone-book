@@ -5,6 +5,7 @@ import { Pagination } from "@/components";
 import * as ContactStyles from "@/components/Styles/Contact.styles";
 import { useAppContext } from "@/contexts/AppContext";
 import { useGetContactListQuery } from "@/graphql";
+import { CgMathPlus } from "react-icons/cg";
 
 import ContactItem from "./ContactItem";
 
@@ -15,14 +16,22 @@ const ContactList = () => {
   const pageCount = 100;
   const pageSize = 10;
   const limit = pageSize;
-  const offset = page <= 1 ? 0 : page * pageSize;
+  const offset = page <= 1 ? 0 : (page - 1) * pageSize;
 
   const { data } = useGetContactListQuery({
     variables: { limit, offset },
   });
 
   useEffect(() => {
-    setAppState({ title: "Contact List", showGoBack: false });
+    setAppState({
+      title: "Contact List",
+      showGoBack: false,
+      actionButton: {
+        show: true,
+        icon: <CgMathPlus />,
+        link: { pathname: `/contact/form` },
+      },
+    });
   }, [router]);
 
   const isPreviousPageDisabled = page < 0;

@@ -17,8 +17,8 @@ export const getPhoneNumberByIndex = (
   }
 
   if (phones.length - 1 >= index) {
-    return "-";
+    return phones[index]?.number;
   }
 
-  return phones[index]?.number || "-";
+  return "-";
 };
