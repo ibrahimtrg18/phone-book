@@ -47,6 +47,7 @@ const Pagination: React.FC<PaginationProps> = ({
         rounded
         disabled={isPreviousPageDisabled}
         onClick={handleClickPreviousPage}
+        aria-label="Previous page"
       >
         <RxChevronLeft />
       </PaginationStyles.PaginationButton>
@@ -61,6 +62,7 @@ const Pagination: React.FC<PaginationProps> = ({
             onClick={() => setPage(page)}
             isActive={isCurrentPage}
             variant="text"
+            aria-label="Current page"
           >
             {page}
           </PaginationStyles.PaginationButton>
@@ -71,6 +73,7 @@ const Pagination: React.FC<PaginationProps> = ({
         rounded
         disabled={isNextPageDisabled}
         onClick={handleClickNextPage}
+        aria-label="Next page"
       >
         <RxChevronRight />
       </PaginationStyles.PaginationButton>

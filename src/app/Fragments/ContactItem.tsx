@@ -58,11 +58,19 @@ const ContactItem = (props: ContactItemProps) => {
         <ContactStyles.Name>{fullName}</ContactStyles.Name>
         <ContactStyles.Phone>{phone}</ContactStyles.Phone>
       </Link>
-      <Button variant="text" onClick={toggleFavorite}>
+      <Button
+        variant="text"
+        onClick={toggleFavorite}
+        aria-label="Toggle to Favorite"
+      >
         {inFavorited ? <BsFillBookmarkFill /> : <BsBookmark />}
       </Button>
       {!inFavorited && (
-        <Button variant="text" onClick={(e) => onRemoveItemClick(e)}>
+        <Button
+          variant="text"
+          aria-label="Remove Contact"
+          onClick={(e) => onRemoveItemClick(e)}
+        >
           <CgTrash />
         </Button>
       )}

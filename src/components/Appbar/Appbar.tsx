@@ -12,7 +12,11 @@ const Appbar = () => {
   return (
     <AppbarStyles.Container>
       {showGoBack && (
-        <AppbarStyles.GoBack variant="text" onClick={() => back()}>
+        <AppbarStyles.GoBack
+          variant="text"
+          aria-label="Go back to previous page"
+          onClick={() => back()}
+        >
           <CgChevronLeft />
         </AppbarStyles.GoBack>
       )}

@@ -23,7 +23,7 @@ const ActionButton = () => {
       href={...actionButton.link}
       {...(overridesBottom && { bottom: "calc(48px + 0.875rem)" })}
     >
-      <Button>{actionButton.icon}</Button>
+      <Button aria-label="Float Action Button">{actionButton.icon}</Button>
     </ActionButtonStyles.Container>
   );
 };
