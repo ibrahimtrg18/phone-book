@@ -1,6 +1,7 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Pagination } from "@/components";
 import * as ContactStyles from "@/components/Styles/Contact.styles";
 import { useAppContext } from "@/contexts/AppContext";
 import { useGetContactListQuery } from "@/graphql";
@@ -10,6 +11,9 @@ import ContactItem from "./ContactItem";
 const ContactList = () => {
   const router = useRouter();
   const { setAppState } = useAppContext();
+  const [page, setPage] = useState(1);
+  const pageCount = 100;
+  const pageSize = 10;
 
   const { data } = useGetContactListQuery({
     variables: { limit: 10, offset: 10 },
@@ -19,6 +23,9 @@ const ContactList = () => {
     setAppState({ title: "Contact List", showGoBack: false });
   }, [router]);
 
+  const isPreviousPageDisabled = page < 0;
+  const isNextPageDisabled = page === pageCount;
+
   return (
     <ContactStyles.Container>
       <ContactStyles.List>
@@ -26,6 +33,16 @@ const ContactList = () => {
           <ContactItem key={contact.id} {...contact} />
         ))}
       </ContactStyles.List>
+      <Pagination
+        handleClickPreviousPage={() => setPage(page - 1)}
+        handleClickNextPage={() => setPage(page + 1)}
+        isPreviousPageDisabled={isPreviousPageDisabled}
+        isNextPageDisabled={isNextPageDisabled}
+        page={page}
+        pageCount={pageCount}
+        pageSize={pageSize}
+        setPage={(page) => setPage(Number(page))}
+      />
     </ContactStyles.Container>
   );
 };
