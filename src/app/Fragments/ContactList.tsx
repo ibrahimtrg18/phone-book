@@ -50,7 +50,7 @@ const ContactList = () => {
     });
   }, [router]);
 
-  const count = Number(data?.contact_aggregate.aggregate?.count);
+  const count = Number(data?.contact_aggregate.aggregate?.count) || 1;
   const isPreviousPageDisabled = page <= 1;
   const isNextPageDisabled = page >= Math.ceil(count / pageSize);
 

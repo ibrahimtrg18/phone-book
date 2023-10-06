@@ -41,11 +41,7 @@ const Pagination: React.FC<PaginationProps> = ({
   });
 
   return (
-    <PaginationStyles.PaginationContainer
-      className={className}
-      data-testid="table-pagination-footer"
-      {...restProps}
-    >
+    <PaginationStyles.PaginationContainer className={className} {...restProps}>
       <PaginationStyles.PaginationButton
         variant="text"
         rounded
